@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body{
+			padding: 0;
+			margin: 0;
+			height: 100%;
+			width: 100%;
+			background-color: #000;
+		}
+		@keyframes into{
+			0%{transform: rotate(-2deg);}
+			50%{transform: rotate(2deg);}
+			100%{transform: rotate(-2deg);}
+		}
+		#head{
+			position: relative;
+			animation-name:into;
+			animation-duration:4s;
+			animation-iteration-count:infinite;
+		
+		}
+		video{
+			position: absolute;
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+		img{
+			z-index: 99;
+			position: relative;
+		}
+		.title{
+			position: relative;
+			margin-left: 5px;
+		}
+		::-webkit-scrollbar{
+			width: 0px;
+		}
+		.spacker{
+
+		}
+	</style>
+</head>
+<body>
+	<video src="bg.mp4" autoplay loop ></video>
+	<br>
+	&nbsp;&nbsp;<img src="logohead.png" width="20%" class="margin-left">
+	<center>
+		<img src="logo.png" width="60%" id="head">
+	</center>
+</body>
+</html>
