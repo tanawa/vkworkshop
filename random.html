@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Prompt&display=swap" rel="stylesheet">
+	<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  var yellow=[];
+  var red=[];
+  var blue=[];
+  var green=[];
+  var pink=[];
+  
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyAE24G-pVlJbnPEbCV9qcldw6_kK3ekjcc",
+    authDomain: "workshop-bd8d3.firebaseapp.com",
+    databaseURL: "https://workshop-bd8d3.firebaseio.com",
+    projectId: "workshop-bd8d3",
+    storageBucket: "",
+    messagingSenderId: "717041146602",
+    appId: "1:717041146602:web:14f5144a5df15825"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  var database=firebase.database();
+  var ref=firebase.database().ref("color");
+  ref.once("value",function(snapshot){
+  	let temp=Object.values(snapshot.val());
+  	console.log(temp.length);
+  	for(let i=0;i<temp.length;i++){
+  		if(i==0){
+            yellow=Object.values(temp[0]);
+            console.log(yellow.length);
+            for(let y=0;y<yellow.length;y++){
+            	$("#1").prepend("<p class=\"show\">"+yellow[y]+"</p>");
+            }
+  		}else if(i==1){
+  			red=Object.values(temp[1]);
+  			console.log(red.length);
+            for(let y=0;y<red.length;y++){
+            	$("#2").prepend("<p class=\"show\">"+red[y]+"</p>");
+            }
+  		}else if(i==2){
+  			blue=Object.values(temp[2]);
+  			console.log(blue.length);
+            for(let y=0;y<blue.length;y++){
+            	$("#3").prepend("<p class=\"show\">"+blue[y]+"</p>");
+            }
+  		}else if(i==3){
+  			green=Object.values(temp[3]);
+  			console.log(green.length);
+            for(let y=0;y<green.length;y++){
+            	$("#4").prepend("<p class=\"show\">"+green[y]+"</p>");
+            }
+  		}else if(i==4){
+  			pink=Object.values(temp[4]);
+  			console.log(pink.length);
+            for(let y=0;y<pink.length;y++){
+            	$("#5").prepend("<p class=\"show\">"+pink[y]+"</p>");
+            }
+  		}
+  	}
+  	
+  },function(err){
+
+  });
+  var ref=firebase.database().ref("send/ListNameCheck");
+  ref.on("value",function(snapshot){
+  	if(snapshot.val()!=null){
+  		ref=firebase.database().ref("send/ListNameCheck");
+  		ref.remove();
+  		let choice=[yellow.length,red.length,blue.length,green.length,pink.length];
+  		let indexs=choice.indexOf(Math.min(...choice));
+  		console.log("สีที่น้อยที่สุด :"+indexs);
+  		let text=snapshot.val();
+  		if (indexs==0) {
+  			yellow.push(snapshot.val());
+  			$(".pink").removeClass("showsup");
+  			$(".yellow").addClass("showsup");
+  			$("#1").prepend("<p class=\"show\">"+text+"</p>");
+  		}else if(indexs==1){
+  			red.push(text);
+  			$(".yellow").removeClass("showsup");
+  			$(".red").addClass("showsup");
+  			$("#2").prepend("<p class=\"show\">"+text+"</p>");
+  		}else if(indexs==2){
+  			blue.push(text);
+  			$(".red").removeClass("showsup");
+  			$(".blue").addClass("showsup");
+  			$("#3").prepend("<p class=\"show\">"+text+"</p>");
+  		}else if(indexs==3){
+  			green.push(text);
+  			$(".blue").removeClass("showsup");
+  			$(".green").addClass("showsup");
+  			$("#4").prepend("<p class=\"show\">"+text+"</p>");
+  		}else if(indexs==4){
+  			pink.push(text);
+  			$(".green").removeClass("showsup");
+  			$(".pink").addClass("showsup");
+  			$("#5").prepend("<p class=\"show\">"+text+"</p>");
+  		}
+  		console.log("ref :send/ListNameCheck/"+indexs+" => plus name :"+text);
+  		ref=firebase.database().ref("color/"+indexs);
+  		ref.child(text).set(text);
+  		/*$(".yellow").removeClass("showsup");
+  	    $(".red").removeClass("showsup");
+  	    $(".blue").removeClass("showsup");
+  		$(".green").removeClass("showsup");
+  		$(".pink").removeClass("showsup");*/
+  	}
+  },function(err){
+
+  });
+  var ref=firebase.database().ref("con");
+    ref.on("value",function(snapshot){
+    	if(snapshot.val()=="\"main1\""){
+    		window.location.href="introthk.html";
+    	}
+    	else if(snapshot.val()=="\"main2\""){
+    		window.location.href="introvk.html";
+    	}
+    	else if(snapshot.val()=="\"rand\""){
+    		window.location.href="random.html";
+    	}
+    	else if(snapshot.val()=="\"img\""){
+    		window.location.href="image.html";
+    	}
+    	else if(snapshot.val()=="\"aut1\""){
+    		window.location.href="aut1.html";
+    	}
+    	else if(snapshot.val()=="\"aut2\""){
+    		window.location.href="aut2.html";
+    	}
+    	ref.remove();
+    },function(err){
+
+    });
+</script>
+	<style type="text/css">
+		@keyframes into{
+			0%{transform: rotate(4deg);}
+			50%{transform: rotate(0deg);}
+			100%{transform: rotate(4deg);}
+		}
+		@keyframes shows{
+			0%{opacity:0;}
+			100%{opacity: 1;}
+		}
+        @keyframes showsup{
+			0%{transform: scale(1,1);}
+			50%{transform: scale(1.2,1.2);opacity: 1;}
+			100%{transform: scale(1,1);}
+		}
+		.into{
+			position: relative;
+			animation-name: into;
+			animation-iteration-count: infinite;
+			animation-duration: 4s;
+		}
+		.showsup{
+			position: relative;
+			animation-name: showsup;
+			animation-duration: 1s;
+		}
+		.show{
+			position: relative;
+			animation-name: shows;
+			animation-duration: 1s;
+		}
+		body{
+			background-image: url('bg.png');
+			background-size: cover;
+			background-repeat: no-repeat;
+			font-family: 'Prompt', sans-serif;
+		}
+		button{
+			font-family: 'Prompt', sans-serif;
+			outline: none;
+			color:#fff;
+			padding: 10px 25px;
+			margin: 10px;
+			border-radius: 5px;
+			background-color: #2c3e50;
+			border:1px solid #2c3e50;
+		}
+		.block{
+			width: 200px;
+			height: 300px;
+			display: block;
+			float: left;
+			margin-left: 25px;
+			border-radius: 5px;
+			opacity: 0.6;
+			position: relative;
+			transition:all 0.5s ease; 
+			
+		}
+		.block:hover{
+			opacity: 1;
+			transform: scale(1.2,1.2);
+		}
+		.yellow{
+			background-color: #f1c40f;
+		}
+		.red{
+			background-color: #e74c3c;
+		}
+		.blue{
+			background-color: #3498db;
+		}
+		.green{
+			background-color: #2ecc71;
+		}
+		.pink{
+			background-color: #9b59b6;
+		}
+		.main{
+			display: block;
+			width: 1150px;
+		}
+		span{
+			height: 300px;
+			width: 200px;
+			display: block;
+			font-size: 12px;
+			padding: 5px 5px 5px 5px;
+			position: relative;
+			overflow: scroll;
+		}
+		::-webkit-scrollbar{
+			width: 1px;
+		}
+		@keyframes fade-out{
+			0%{opacity: 1;}
+			0%{opacity: 0;}
+		}
+		.fade-out{
+			animation-duration: 1s;
+			animation-name: fade-out;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+	<div id="main">
+	<center>
+		<br><br>
+		<img src="head.png" width="30%" class="into">
+		<br /><br>
+		<br><br>
+		<div class="main">
+		<div class="block yellow">
+			<span id="1">
+				
+			</span>
+		</div>
+		<div class="block red">
+			<span id="2">
+				
+			</span>
+		</div>
+		<div class="block blue">
+			<span id="3">
+				
+			</span>
+		</div>
+		<div class="block green">
+			<span id="4">
+				
+			</span>
+		</div>
+		<div class="block pink">
+			<span id="5">
+				
+			</span>
+		</div>
+	</div>
+	</center>
+</div>
+</body>
+</html>
