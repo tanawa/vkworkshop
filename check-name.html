@@ -36,6 +36,10 @@
 	<style>
 		body{
 			font-family: 'Prompt', sans-serif;
+			height: 100%;
+			width: 100%;
+			padding: 0;
+			margin: 0;
 		}
 		.head{
 			padding: 10px 25px;
@@ -84,6 +88,17 @@
 			background-color: #fff;
 			transition: all 0.5s ease;
 			font-family: 'Prompt', sans-serif;
+		}
+		@keyframes into{
+			0%{transform: rotate(-2deg);}
+			50%{transform: rotate(2deg);}
+			100%{transform: rotate(-2deg);}
+		}
+		img{
+			animation-name: into;
+			animation-duration: 3s;
+			position: relative;
+			height: 50%;
 		}
 	</style>
 </head>
