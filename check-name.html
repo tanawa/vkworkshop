@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,47 +91,43 @@
 <center>
 	<br><br>
 <img src="head.png" width="30%">
-<!--<p class="head">เช็คชื่อ Work Shop วิหคสัมพันธ์ครั้งที่ 7</p>-->
-<p class="subhead">โรงเรียนธรรมศาสตร์คลองหลวงวิทยาคม</p>
-<select id="date">
-	<option>วันที่ 31 กรกฎาคม 2562</option>
-	<option>วันที่ 3  สิงหาคม 2562</option>
-	<option>วันที่ 4  สิงหาคม 2562</option>
-</select>
-<input type="text" name="" placeholder="กรุณากรอกRFID" id="text">
-<br><br>
-<div class="alert">
-	<p>รายชื่อที่เช็คชื่อ</p>
-<div id="show">
-</div>
-</div>
+
 </center>
 <script type="text/javascript">
-	name=[];
-	$("#text").keypress(function(e){
-		if((e.code=="Enter" || e.code=="NumpadEnter") && $("#text").val()!=""){
-			var ref=firebase.database().ref("member/"+$("#text").val());
-			ref.once("value",function(snapshot){
-				ref=firebase.database().ref("send");
-				if(snapshot.val()==null){
-					ref.child("ListNameCheck").set("ไม่มีข้อมูล "+$("#text").val());
-					ref=firebase.database().ref("checktime/"+$("#date").val());
-					ref.child("ไม่มีข้อมูล "+$("#text").val()).set("ไม่มีข้อมูล "+$("#text").val());
-				}else{
-					ref.child("ListNameCheck").set(snapshot.val());
-					ref=firebase.database().ref("checktime/"+$("#date").val());
-					ref.child(snapshot.val()).set(snapshot.val());
-				}
-				
-				
-				$("#text").val("")
-			},function(err){
-				console.log("error");
-			});
+	color=["y","r","b","g","p"];
+	number=[];
+	$("body").keypress(function(e){
+		console.log(number);
+		console.log("len :"+number.length);
+		if(number.length==5){
+			number=[];
 		}
-		else{
-			console.log(e.code);
+		let rand=Math.floor(Math.random()*color.length);
+
+		while(number.indexOf(rand)>-1){
+			rand=Math.floor(Math.random()*color.length);
 		}
+		console.log("rand :"+color[rand]);
+		let colorname=color[rand];
+		
+		number.push(rand);
+		var ref=firebase.database().ref("color");
+		ref.child("random").set(colorname);
+		console.log(number);
+			
+		if(colorname=="y"){
+			document.body.style.backgroundColor="#f1c40f";
+		}else if(colorname=="r"){
+			document.body.style.backgroundColor="#e74c3c";
+		}else if(colorname=="b"){
+			document.body.style.backgroundColor="#3498db";
+		}else if(colorname=="g"){
+			document.body.style.backgroundColor="#2ecc71";
+		}else if(colorname=="p"){
+			document.body.style.backgroundColor="#9b59b6";
+		}
+
+		
 	});
 </script>
 </body>
