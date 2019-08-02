@@ -8,6 +8,38 @@
 			background-size:cover;
 			background-repeat: no-repeat;
 		}
+		@keyframes into{
+			0%{transform: rotate(-2deg);}
+			50%{transform: rotate(2deg);}
+			100%{transform: rotate(-2deg);}
+		}
+		#head{
+			position: relative;
+			animation-name:into;
+			animation-duration:4s;
+			animation-iteration-count:infinite;
+		
+		}
+		video{
+			position: absolute;
+			width: 100%;
+			padding: 0;
+			margin: 0;
+			opacity: 0.6;
+		}
+		img{
+			z-index: 99;
+			position: relative;
+		}
+		.title{
+			position: relative;
+			margin-left: 5px;
+		}
+		::-webkit-scrollbar{
+			width: 0px;
+		}
+		.spacker{
+		}
 	</style>
 		<link href="https://fonts.googleapis.com/css?family=Prompt&display=swap" rel="stylesheet">
 	<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
@@ -56,7 +88,7 @@
 <img src="โครงการใหม่ (1).png" width="17%">
 <br>
 <center>
-<img src="โครงการใหม่.png" width="70%">	
+<img src="โครงการใหม่.png" width="70%" id="head">	
 </center>
 
 </body>
